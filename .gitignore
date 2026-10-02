@@ -1,0 +1,7 @@
+# credenciais/configuração local do clasp
+.clasp.json
+.clasprc.json
+# dados exportados de planilhas
+*.csv
+*.xlsx
+.env
