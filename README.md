@@ -1,6 +1,6 @@
 # 📬 Lembrete diário de cancelamentos pendentes (Google Sheets + Apps Script)
 
-Automação criada para um time de pós-vendas que registra pedidos de cancelamento em uma planilha do Google Sheets. Todo dia útil, às **17:30**, um e-mail é enviado automaticamente aos supervisores com a lista de pedidos que **ainda não foram cancelados**, evitando que alguma solicitação passe despercebida.
+Automação criada para um time de pós-vendas que registra pedidos de cancelamento em uma planilha do Google Sheets. Todo dia útil, às **16:30**, um e-mail é enviado automaticamente aos supervisores com a lista de pedidos que **ainda não foram cancelados**, evitando que alguma solicitação passe despercebida.
 
 Roda 100% nos servidores do Google: não precisa de computador ligado, servidor nem clique manual.
 
@@ -26,14 +26,14 @@ As solicitações de cancelamento eram enviadas em um grupo de chat, e algumas a
 
 O e-mail segue a identidade visual do Magalu: cabeçalho azul com logo, faixa colorida, cartões com o total de pendentes, atrasados e de hoje, selos de prazo em cada linha e botão para abrir a planilha. Quando não há pendências, o e-mail mostra "Tudo em dia!". As cores e o logo ficam no objeto `CONFIG` (`LOGO_URL` vazio usa o nome "magalu" em texto).
 
-### Agendamento preciso às 17:30
+### Agendamento preciso às 16:30
 
 Gatilhos diários do Apps Script disparam em uma janela de 1 hora, sem minuto exato. Para garantir o horário, o projeto usa dois passos:
 
 ```
-Gatilho diário (16h–17h) ──► agendarEnvioDoDia()
+Gatilho diário (15h–16h) ──► agendarEnvioDoDia()
                                    │
-                                   └─► cria gatilho único para hoje às 17:30 ──► enviarLembrete()
+                                   └─► cria gatilho único para hoje às 16:30 ──► enviarLembrete()
 ```
 
 ## Estrutura esperada da planilha
@@ -58,7 +58,7 @@ Linha 1 é o cabeçalho, e os dados começam na linha 3 (ajustável em `CONFIG.L
      | `ROTULO_PROTOCOLO` | não | título da coluna de protocolo (padrão: `Protocolo`) |
 3. Ajuste o objeto `CONFIG` se necessário (nome da aba, linha inicial, horário).
 4. Execute **`testarEmail`**. Ele envia uma prévia somente para você.
-5. Execute **`criarGatilhos`** uma única vez (ou crie em *Acionadores*: função `agendarEnvioDoDia`, baseado no tempo, contador de dias, 16h–17h).
+5. Execute **`criarGatilhos`** uma única vez (ou crie em *Acionadores*: função `agendarEnvioDoDia`, baseado no tempo, contador de dias, 15h–16h).
 
 > ⚠️ Não execute `enviarLembrete` manualmente: ele envia para os destinatários reais.
 

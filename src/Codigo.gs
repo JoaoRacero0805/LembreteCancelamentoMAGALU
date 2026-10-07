@@ -1,7 +1,7 @@
 /**
  * Lembrete diário de cancelamentos pendentes
  * Apenas LÊ a planilha e envia por e-mail os pedidos que não estão como "Cancelado".
- * Envio automático às 17:30 em dias úteis (rode criarGatilhos UMA vez).
+ * Envio automático às 16:30 em dias úteis (rode criarGatilhos UMA vez).
  *
  * Dados sensíveis NÃO ficam no código. Configure em
  * Configurações do projeto > Propriedades do script:
@@ -13,8 +13,8 @@
 const CONFIG = {
   NOME_ABA: 'Página1',
   LINHA_INICIAL: 3,                      // dados começam na linha 3
-  HORA_ENVIO: 17,
-  MINUTO_ENVIO: 30,                      // envio às 17:30
+  HORA_ENVIO: 16,
+  MINUTO_ENVIO: 30,                      // envio às 16:30
   ENVIAR_FIM_DE_SEMANA: false,
   ENVIAR_SE_VAZIO: true,                 // manda "nenhum pendente" quando não houver nada
   COL: { PEDIDO: 1, PROTOCOLO: 2, MOTIVO: 3, DATA: 4, STATUS: 5 },
@@ -40,7 +40,7 @@ const CONFIG = {
 
 /* ===================== AGENDAMENTO ===================== */
 
-// Rode UMA vez. Cria um gatilho diário (entre 16h e 17h) que agenda o envio exato das 17:30.
+// Rode UMA vez. Cria um gatilho diário (entre 15h e 16h) que agenda o envio exato das 16:30.
 function criarGatilhos() {
   ScriptApp.getProjectTriggers()
     .filter(t => ['enviarLembrete', 'agendarEnvioDoDia'].includes(t.getHandlerFunction()))
@@ -54,7 +54,7 @@ function criarGatilhos() {
     .create();
 }
 
-// Executada automaticamente todo dia: agenda um disparo único para hoje às 17:30.
+// Executada automaticamente todo dia: agenda um disparo único para hoje às 16:30.
 function agendarEnvioDoDia() {
   ScriptApp.getProjectTriggers()
     .filter(t => t.getHandlerFunction() === 'enviarLembrete')
